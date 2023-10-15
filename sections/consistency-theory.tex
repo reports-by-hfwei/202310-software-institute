@@ -52,7 +52,7 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item iterate each inactive arcs $(x, y)$ , then some values can be decided instantly(\blue{Unit-edge Propagation}). 
+		\item iterate on each inactive arc $(x, y)$ , then some values can be decided instantly(\blue{Unit-edge Propagation}). 
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,12 +80,44 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Experimental Evaluation}
-	experimental evaluation
+	% \begin{center}
+	% 	\scriptsize{
+	% 		\begin{tabular}{|c|c|c|c|c|}
+	% 			\hline
+	% 			baseline & \makecell{cycle\\ detection} & \makecell{conflict\\ generation} & \makecell{unit-edge\\ propagation} & \makecell{pair conflict\\generation} \\
+	% 			\hline
+	% 			z3 user propagator* & local toposort & smallest & $\checkmark$(partial) & \\
+	% 			\hline
+	% 			monosat & PK toposort & first & & \\
+	% 			\hline
+	% 			acyclic minisat* & ICD & first & $\checkmark$ & $\checkmark$ \\
+	% 			\hline
+	% 			cobra(w/o GPU) & \multicolumn{3}{c|}{same as monosat} & \\
+	% 			\hline 
+	% 		\end{tabular} 
+	% 	}
+	% 	\\
+	% 	\tiny{*: we implemented}
+	% \end{center}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figs/ser-checker-baselines.png}		
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}{Experimental Evaluation}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.48\textwidth]{figs/ser-checker-rubis-twitter-and-tpcc-ntxn10000.png}
+		\includegraphics[width=0.48\textwidth]{figs/ser-checker-chengRW-verification-time-vs-ntxns.png}
+	\end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}{What Needs To Do Next}
 	what needs to do next
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
