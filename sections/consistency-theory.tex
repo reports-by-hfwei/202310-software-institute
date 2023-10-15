@@ -1,8 +1,14 @@
 % consistency-theory.tex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-	motivation: for efficiency; by designing dedicated theory for consistency checking
+\begin{frame}{Motivation}
+	\begin{itemize}
+		\item A new class of cloud databases has emerged, additionally offering \textbf{serializable} transactions: all transactions appear to execute in a single, sequential order.
+		\item For numerous client programs, serializability is a fundamental part of their correctness.
+		\item Serializability checking problem has been proved NP-Complete.
+		\item There's a necessity to develop an \textbf{efficent} serializability verifier of a black-box database.
+		\item The performance of the state-of-the-art verifier cobra relies a lot on its V100 GPU acceleration, there's still large room for improvement.
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -130,7 +136,7 @@
 		\end{itemize}
 		\item \textbf{make the theory solver lazier}
 		\begin{itemize}
-			\item observation: after pruning and pair conflict generation, the times of detecting a cycle has delined greatly.
+			\item observation: after pruning and pair conflict generation, the times of detecting a cycle has declined greatly.
 			\item a lazier theory solver may be capable for more big yet powerful cycle detection algorithms.  
 		\end{itemize}
 	\end{itemize}
