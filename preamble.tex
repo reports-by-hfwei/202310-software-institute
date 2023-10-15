@@ -143,6 +143,17 @@
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
+
+\usepackage{tikz}
+\usetikzlibrary{calc, trees, positioning, arrows, arrows.meta,
+  chains, shapes.geometric, decorations.pathreplacing,
+  decorations.pathmorphing, shapes, matrix, shapes.symbols, fit}
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+\tikzset{temporal/.code args={<#1>#2#3#4}{%
+  \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}} % \pgfkeysalso doesn't change the path
+}}
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% Citation %%%%%%%%%%%%%%%
