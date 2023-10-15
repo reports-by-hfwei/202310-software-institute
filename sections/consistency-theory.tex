@@ -61,7 +61,7 @@
 \begin{frame}{Optimization 2}{pruning, pair conflict generation, ...}
 	\scriptsize{
 		\begin{itemize}
-			\item for a simple constraint $C = \{C_1, C_2\} = \{\{(x, y)\}, \{(y, x)\}\}$, if it is reachable from $y$ to $x$, then $C_2 = \{(y, x)\}$ must be inserted into the graph(\blue{Pruning}).
+			\item For a simple constraint $C = \{C_1, C_2\} = \{\{(x, y)\}, \{(y, x)\}\}$, if it is reachable from $y$ to $x$, then $C_2 = \{(y, x)\}$ must be inserted into the graph(\blue{Pruning}).
 			\item Observation: after pruning, the average width\footnote{\tiny{number of different variables on a cycle}} of detected cycles is $\in [2, 3)$, which means most conflict clauses only consist of 2 variables.
 			\item Such clauses can be generated beforewise(\blue{Pair Conflict Generation}).
 		\end{itemize}
@@ -118,12 +118,29 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What Needs To Do Next}
-	what needs to do next
+	\begin{itemize}
+		\item \textbf{pick}: leverage the underlying graph infomation to make a seemingly best assignment.
+		\begin{itemize}
+			\item to choose the variable that contains maximum / minimal edges, or is able to best trigger unit-edge propagation. 
+			\item to learn some infomation from those detected cycles.
+		\end{itemize}
+		\item \textbf{unify the approach to handle small width cycles}
+		\begin{itemize}
+			\item to design an algorithm that performs well on those small width cycles.
+		\end{itemize}
+		\item \textbf{make the theory solver lazier}
+		\begin{itemize}
+			\item observation: after pruning and pair conflict generation, the times of detecting a cycle has delined greatly.
+			\item a lazier theory solver may be capable for more big yet powerful cycle detection algorithms.  
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	extended to client program verification and robustness verification
+
+	qaq
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
