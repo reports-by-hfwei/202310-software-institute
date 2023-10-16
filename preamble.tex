@@ -2,8 +2,8 @@
 
 %%%%%%%%%%%%%%% Chinese %%%%%%%%%%%%%%%
 %%%%% Uncomment the following lines to use Chinese
-% \usepackage{xeCJK}
-% \usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{fontspec}
 %%%%%%%%%%%%%%% Chinese %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% Theme %%%%%%%%%%%%%%%
@@ -135,14 +135,25 @@
 }
 
 %%%%% For Chinese %%%%%
-% \renewcommand\figurename{图:\;}
-% \renewcommand\tablename{表:\;}
+\renewcommand\figurename{图:\;}
+\renewcommand\tablename{表:\;}
 %%%%% For Chinese %%%%%
 %%%%%%%%%%%%%%% Figures %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
+
+\usepackage{tikz}
+\usetikzlibrary{calc, trees, positioning, arrows, arrows.meta,
+  chains, shapes.geometric, decorations.pathreplacing,
+  decorations.pathmorphing, shapes, matrix, shapes.symbols, fit}
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+\tikzset{temporal/.code args={<#1>#2#3#4}{%
+  \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}} % \pgfkeysalso doesn't change the path
+}}
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% Citation %%%%%%%%%%%%%%%
@@ -170,6 +181,7 @@
 \newcommand{\teal}[1]{\textcolor{teal}{#1}}
 \newcommand{\brown}[1]{\textcolor{brown}{#1}}
 \newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
 
 \newcommand{\hl}[2]{\fcolorbox{#1}{#1!60}{#2}}
 %%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%
