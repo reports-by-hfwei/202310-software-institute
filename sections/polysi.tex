@@ -1,121 +1,6 @@
 % polysi.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Database Systems and Snapshot Isolation}
-  \begin{center}
-    Many database systems implement snapshot isolation.
-
-    \vspace{0.30cm}
-    \fig{width = 0.80\textwidth}{figs/db-si}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Database Systems and Snapshot Isolation}
-  \begin{center}
-    Database systems may \red{fail} to provide snapshot isolation correctly.
-
-    \vspace{0.30cm}
-    \fig{width = 0.85\textwidth}{figs/db-si-violations}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The SI Checking Problem}
-  \begin{definition}[The SI Checking Problem]
-    The SI checking problem is the \purple{decision problem} of determing \\[5pt]
-    whether a \teal{{\it history} $\H = (T, \SO)$}\footnote{
-      We take the common ``UniqueValue'' assumption on histories:
-      for each key, every write to the key assigns a unique value.
-    } of a database system satisfies SI?
-  \end{definition}
-
-  \fig{width = 0.60\textwidth}{figs/si-checking}
-
-  \vspace{-0.50cm}
-  \[
-    \SO: \text{{\it session order} among the set $T$ of transactions}
-  \]
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The SI Checking Problem}
-  \begin{center}
-    \uncover<1->{
-      \blue{\it Sound:} If the checker says \no,
-        then the history does {\it not} satisfy SI.
-    }
-
-    \vspace{0.20cm}
-    \uncover<2->{
-      \blue{\it Complete:} If the checker says \yes,
-        then the history {\it satisfies} SI.
-    }
-
-    \vspace{0.30cm}
-    \input{tikz/checker-tikz}
-    \vspace{0.30cm}
-
-    \uncover<3->{
-      \blue{\it Efficient:} The checker should {\it scale} up to large workloads.
-    }
-
-    \vspace{0.20cm}
-    \uncover<4>{
-      \blue{\it Informative:} The checker should provide
-        understandable {\it counterexamples} if it finds violations.
-    }
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Related Work}
-  \begin{description}
-    \setlength{\itemsep}{15pt}
-    \item[dbcop~\ncite{Complexity:OOPSLA2019}] checker for SI \\[2pt]
-      not practically efficient; \\[2pt]
-      not informative, returning only ``\textsf{False}'' upon violations
-    \item[Cobra~\ncite{Cobra:OSDI2020}] state-of-the-art checker for SER \\[2pt]
-      The SI checking problem is {\it harder}.
-  \end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Related Work}
-  \begin{description}
-    \item[Elle~\ncite{Elle:VLDB2020}] checker for various isolation levels \\[2pt]
-
-      \vspace{0.20cm}
-      Work perfectly on traceable and recoverable histories;
-      but may be incomplete on the key-value datatype
-
-      \pause
-      \vspace{0.20cm}
-      SI checking based on the Adya-style notions~\ncite{Adya:PhDThesis1999}
-      relies on the start/commit timestamps of transactions.\\[2pt]
-
-      \pause
-      \vspace{0.20cm}
-      SI checking based on the~\ncite{AnalysingSI:JACM2018} notions
-      may miss SI violations.\footnote{
-        Could Elle tell the difference between snapshot isolation and strong-session-snapshot-isolation? https://github.com/jepsen-io/elle/issues/17}
-        \footnote{Elle may miss two types of transaction anomalies. https://github.com/jepsen-io/elle/issues/21}
-  \end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contribution: the \polysi{} Checker}
-  \fig{width = 0.70\textwidth}{figs/checker-polysi}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Contribution: the \polysi{} Checker}
   \begin{center}
     \input{tikz/polysi-checker-tikz}
@@ -430,9 +315,9 @@
 		\begin{enumerate}[(1)]
 			\setlength{\itemsep}{15pt}
 			\item \red{\it Effective:}
-			  Can \polysi{} find SI violations in databases?
+			  \gray{Can \polysi{} find SI violations in databases?}
 			\item \blue{\it Informative:}
-			  Can \polysi{} provide understandable counterexamples for SI violations?
+			  \gray{Can \polysi{} provide understandable counterexamples for SI violations?}
 			\item \purple{\it Efficient:}
 			  How efficient is \polysi?
 		\end{enumerate}
@@ -468,58 +353,58 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Reproducing Known SI Violations}
-	\begin{center}
-		{\input{tables/effectiveness-reproduce}}
-		\vspace{0.80cm}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Reproducing Known SI Violations}
+% 	\begin{center}
+% 		{\input{tables/effectiveness-reproduce}}
+% 		\vspace{0.80cm}
 
-		An extensive collection of 2477 anomalous histories \\[2pt]
-		\ncite{Complexity:OOPSLA2019, CockroachDB-bug, YugabyteDB-bug}
-	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+% 		An extensive collection of 2477 anomalous histories \\[2pt]
+% 		\ncite{Complexity:OOPSLA2019, CockroachDB-bug, YugabyteDB-bug}
+% 	\end{center}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Detecting New SI Violations}
-	\begin{center}
-		\red{Dgraph}: helped the Dgraph team \blue{confirm} some of their suspicions
-		  about their latest release
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Detecting New SI Violations}
+% 	\begin{center}
+% 		\red{Dgraph}: helped the Dgraph team \blue{confirm} some of their suspicions
+% 		  about their latest release
 
-		\vspace{0.50cm}
-		{\input{tables/effectiveness-new}}
-		\vspace{0.50cm}
+% 		\vspace{0.50cm}
+% 		{\input{tables/effectiveness-new}}
+% 		\vspace{0.50cm}
 
-		\red{Galera}: \blue{confirmed} the incorrect claim on preventing ``lost updates''
-		  for transactions issued on different cluster nodes
-	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+% 		\red{Galera}: \blue{confirmed} the incorrect claim on preventing ``lost updates''
+% 		  for transactions issued on different cluster nodes
+% 	\end{center}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Understanding Violations (Lost Update)}
-	\begin{center}
-		\input{figs/informativeness}
-	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Understanding Violations (Lost Update)}
+% 	\begin{center}
+% 		\input{figs/informativeness}
+% 	\end{center}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation}
-	\begin{description}
-		\setlength{\itemsep}{15pt}
-		\item[dbcop~\ncite{Complexity:OOPSLA2019}:]
-			the state-of-the-art SI checker
-		\item[CobraSI:] reducing SI checking to SER checking \\
-		  \ncite{Complexity:OOPSLA2019} to leverage Cobra with/without GPU
-			\vspace{0.20cm}
-			\begin{description}
-				\item[Cobra~\ncite{Cobra:OSDI2020}:]
-					the state-of-the-art SER checker using both MonoSAT and GPU
-			\end{description}
-	\end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Performance Evaluation}
+% 	\begin{description}
+% 		\setlength{\itemsep}{15pt}
+% 		\item[dbcop~\ncite{Complexity:OOPSLA2019}:]
+% 			the state-of-the-art SI checker
+% 		\item[CobraSI:] reducing SI checking to SER checking \\
+% 		  \ncite{Complexity:OOPSLA2019} to leverage Cobra with/without GPU
+% 			\vspace{0.20cm}
+% 			\begin{description}
+% 				\item[Cobra~\ncite{Cobra:OSDI2020}:]
+% 					the state-of-the-art SER checker using both MonoSAT and GPU
+% 			\end{description}
+% 	\end{description}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Runtime}
@@ -544,7 +429,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Scalability}
 	\begin{center}
-		several hours and $35 \sim 40$GB memory for checking \blue{1M} transactions
+		Several hours and $35 \sim 40$GB memory for checking \blue{1M} transactions
 
 		\vspace{0.30cm}
 		\fig{width = 0.70\textwidth}{figs/polysi-scalability}

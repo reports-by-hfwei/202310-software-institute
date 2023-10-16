@@ -1,16 +1,16 @@
 % report.tex
 
 % change pdflatex below to xelatex if you use Chinese
-% !TEX program = pdflatex
+% !TEX program = xelatex
 \documentclass[]{beamer}
 
 \input{preamble}
 \input{newcommands}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title[]{Efficient Transactional Consistency Verification}
+\title[]{数据库事务一致性高效验证技术研究}
 \subtitle{}
 
-\author[Hengfeng Wei]{Hengfeng Wei}
+\author[魏恒峰]{魏恒峰}
 \titlegraphic{
   \includegraphics[height = 1.5cm]{figs/nju-logo-purple}~
   \includegraphics[height = 1.5cm]{figs/software-logo}}
@@ -20,6 +20,7 @@
 \begin{document}
 \maketitle
 %%%%%%%%%%%%%%%%%%%%
+\input{sections/overview}
 \input{sections/intro}
 \input{sections/polysi}
 \input{sections/c4}
