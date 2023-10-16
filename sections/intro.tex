@@ -81,3 +81,26 @@
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \input{tikz/polysi-checker-tikz}
+
+    \vspace{0.50cm}
+    \only<1>{
+      \blue{{\it Sound} \&{\it Complete:}}
+        提出一种基于 {\it polygraph} 的 SI 刻画定理
+    }
+    \only<2>{
+      \blue{\it Efficient:} 使用面向图问题的 MonoSAT 求解器
+    }
+    \only<3>{
+      \blue{\it Efficient:} 在编码前对 {\it polygraph} 上的约束进行剪枝
+    }
+    \only<4>{
+      \blue{\it Informative:} 从 UNSAT core 中抽取易于理解的反例
+    }
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
