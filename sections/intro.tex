@@ -9,10 +9,10 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    可序列化 (Serializability): 所有事务就像按照某个全序执行一样。
+    可序列化 (Serializability): 所有事务就像按照某个全序执行一样
 
     \vspace{0.30cm}
-    \fig{width = 0.70\textwidth}{figs/cobra-osdi2020}
+    \fig{width = 0.80\textwidth}{figs/cobra-osdi2020}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -20,7 +20,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    为了提高性能, 很多数据库仅提供快照隔离 (Snapshot Isolation)。
+    为了提高性能, 很多数据库仅提供快照隔离 (Snapshot Isolation; SI)
 
     \vspace{0.30cm}
     \fig{width = 0.80\textwidth}{figs/db-si}
@@ -29,34 +29,31 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
+\begin{frame}{}
   \begin{center}
 		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-si-write-skew-tikz}}
 
-    \vspace{0.20cm}
-    \violet{Snapshot Read:} Each transaction reads data from a {\it snapshot} \\
-      as of the time the transaction started.
+    \vspace{0.50cm}
+    \violet{快照读性质:} 事务从数据库的某个快照读取数据
   \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
-  \begin{center}
-    \resizebox{0.48\textwidth}{!}{\input{tikz/isolation-si-lost-update-tikz}}
-  \end{center}
-
-  \vspace{-0.50cm}
-  \violet{Snapshot Write:}
-    Concurrent transactions {\it cannot} write to the same key.
-    One of them must be aborted.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    但是, 很多数据库\red{\bf 未能}正确实现快照隔离。
+    \resizebox{0.48\textwidth}{!}{\input{tikz/isolation-si-lost-update-tikz}}
+
+    \vspace{0.50cm}
+    \violet{快照写性质:} 并发事务不能更新同一个数据项
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    但是, 很多数据库\red{\bf 未能}正确实现快照隔离
 
     \vspace{0.30cm}
     \fig{width = 0.85\textwidth}{figs/db-si-violations}
@@ -67,20 +64,20 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    高效的快照隔离检测算法
+    \blue{\bf 我们的贡献:} 高效的快照隔离检测算法与工具~\ncite{PolySI:VLDB2023}
 
     \fig{width = 0.85\textwidth}{figs/polysi-vldb2023}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{center}
-    \fig{width = 0.70\textwidth}{figs/checker-polysi}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \begin{center}
+%     \fig{width = 0.70\textwidth}{figs/checker-polysi}
+%   \end{center}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}

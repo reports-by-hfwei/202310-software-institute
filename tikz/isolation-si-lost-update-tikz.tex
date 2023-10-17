@@ -31,24 +31,24 @@
   \draw[comm] (t-carol) -- (t-carol |- isolation.north);
   \draw[comm] (isolation) -- (isolation |- db.north);
 
-  \uncover<2->{
+  % \uncover<2->{
   \node[txn, below = 0.50cm of db] (t-bob-execution)
     {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, ?)$};
   \node[below = 0.50cm of db, scale = 3.00] (t-bob-abort) {\no};
-  }
+  % }
   % \uncover<6->{
   % \node[txn, below = 0.50cm of db, fill = green!50] (t-bob-retry)
   %   {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 75)$};
   % }
 
-  \uncover<2->{
+  % \uncover<2->{
   \node[txn, left = of t-bob-execution] (t-alice-execution)
     {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 50)$};
-  }
+  % }
 
-  \uncover<2->{
+  % \uncover<2->{
   \node[above right = 0.20cm and 1.00cm of t-bob-execution] (lost-update)
     {\red{\large \textsc{Lost Update}}};
   \node[above right = -0.60cm and 1.30cm of t-bob-execution, scale = 3] (no) {\no};
-  }
+  % }
 \end{tikzpicture}

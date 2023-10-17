@@ -3,12 +3,12 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
 	\begin{center}
-		基于依赖图的 SI 刻画定理~\ncite{AnalysingSI:JACM2018}.
+		基于依赖图的 SI 刻画定理~\ncite{AnalysingSI:JACM2018}
 
 		\vspace{0.50cm}
 		\begin{theorem}[定理 4.1 of~\ncite{AnalysingSI:JACM2018}]
 			一个历史执行满足 \textup{SI} 当且仅当它存在一个依赖图 (dependency graph),
-			该依赖图无环或者环中至少包含两条相邻的 $\RW$ 边。
+			该依赖图无环或者环中包含相邻的 $\RW$ 依赖边。
 		\end{theorem}
 	\end{center}
 \end{frame}
@@ -35,15 +35,15 @@
 		{\input{tikz/banking-lost-update-depgraph-tikz}}
 		\vspace{0.20cm}
 
-		% \only<2>{
-		% 	$\WR$: ``write-read'' dependency capturing the ``read-from'' relation
-		% }
-		% \only<3>{
-		% 	$\WW$: ``write-write'' dependency capturing the version order on $\acct$
-		% }
-		% \only<4-5>{
-		% 	$\RW$: ``read-write'' dependency
-		% }
+		\only<2>{
+			$\WR$: $T_{A}$ 读到了 $T_{0}$ 写的值
+		}
+		\only<3>{
+			$\WW$: $T_{B}$ 覆写了 $T_{0}$ 写的值
+		}
+		\only<4-5>{
+			$\RW$: $T_{A}$ 读到的值被 $T_{B}$ 覆写了
+		}
 		\only<6>{
 			SI \blue{允许}环 $T_{A} \rel{\RW} T_{B} \rel{\RW} T_{A}$
 		}
@@ -76,13 +76,13 @@
 \begin{frame}{}
   \begin{center}
 		$T_{A} \rel{\WW} T_{B}$
-		与 $T_{B} \rel{\WW} T_{A}$ 两种情况都会导致违反 SI 的环。
+		与 $T_{B} \rel{\WW} T_{A}$ 两种情况都会导致违反 SI 的环
 
 		\vspace{0.20cm}
 		\fig{width = 0.65\textwidth}{figs/banking-lost-update-wr}
 		\vspace{0.20cm}
 
-		因此, 该执行历史不满足 SI。
+		因此, 该执行历史不满足 SI
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -122,7 +122,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
 	\begin{center}
-		Polygraph: 在一个结构中表达依赖图的所有可能性
+		{\it Polygraph}: 在单个结构中表达某历史执行对应的所有可能的依赖图
 	\end{center}
 
 	\vspace{-0.20cm}
@@ -137,8 +137,9 @@
 	\begin{center}
 		\pause
 		\fig{width = 0.50\textwidth}{figs/banking-lost-update-polygraph}
-		polygraph:
-		$\tuple{\cyan{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
+		\vspace{0.20cm}
+
+		$\blue{\text{\bf 约束}}: \tuple{\cyan{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
 				\cyan{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
 		$
 	\end{center}
@@ -377,7 +378,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-	\centerline{\polysi{} 的性能显著优于其它 SI 检测算法。\footnote{
+	\centerline{\polysi{} 的性能显著优于其它 SI 检测算法\footnote{
 		本实验使用由 PostgreSQL 产生的满足 SI 的执行历史。
 	}}
 
@@ -389,8 +390,8 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-	\centerline{\polysi{} 消耗更少的内存。}
-	\fig{width = 0.50\textwidth}{figs/polysi-memory}
+	\centerline{\polysi{} 消耗更少的内存}
+	\fig{width = 0.60\textwidth}{figs/polysi-memory}
   %\#sessions=20, \#txns/session=100, \#ops/txn=15,   keys=10k,  \%read=50\%, distribution=zipfian.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -410,12 +411,12 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
 	\begin{center}
-		\blue{剪枝 (P)} 对 \polysi{} 的性能影响较大。\footnote{
+		\blue{剪枝 (P)} 对 \polysi{} 的性能影响较大\footnote{
 			\blue{紧凑编码 (C)} 从略。
 		}
 
 		\vspace{0.30cm}
-		\fig{width = 0.70\textwidth}{figs/polysi-diff}
+		\fig{width = 0.75\textwidth}{figs/polysi-diff}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -423,13 +424,12 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
 	\begin{center}
-		在实验中, 剪枝步骤可以删除绝大多数约束。
+		在实验中, 剪枝步骤可以删除绝大多数约束\footnote{
+			\red{TPC-C}: 仅包含只读事务与 RMW 事务
+		}
 
 		\vspace{0.30cm}
 		\input{tables/pruning}
-		\vspace{0.30cm}
-
-		\red{TPC-C}: 仅包含只读事务与 RMW 事务
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

@@ -36,19 +36,19 @@
   \draw[comm] (t-carol) -- (t-carol |- isolation.north);
   \draw[comm] (isolation) -- (isolation |- db.north);
 
-  \uncover<2->{
+  % \uncover<2->{
   \node[txn, below = 0.50cm of db, fill = green!30] (t-bob-execution)
     {$\readevent(\acctone, 60)$ \\[2pt]
      $\readevent(\accttwo, 60)$ \\[2pt]
      $\writeevent(\accttwo, -40)$};
-  }
-  \uncover<2->{
+  % }
+  % \uncover<2->{
   \node[txn, left = of t-bob-execution] (t-alice-execution)
     {$\readevent(\acctone, 60)$ \\[2pt]
      $\readevent(\accttwo, 60)$ \\[2pt]
      $\writeevent(\acctone, -40)$};
-  }
-  \uncover<3->{
+  % }
+  % \uncover<3->{
   \node[txn, right = of t-bob-execution, fill = red!30] (t-carol-execution)
     {$\readevent(\acctone, -40)$ \\[2pt]
      $\readevent(\accttwo, -40)$};
@@ -56,5 +56,5 @@
     \node[above = 1.50cm of t-carol-execution] (write-skew)
       {\green{\Large \textsc{Write Skew}}};
     \node[above = 0.80cm of t-carol-execution, scale = 3] (yes) {\yes};
-  }
+  % }
 \end{tikzpicture}
